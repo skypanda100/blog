@@ -9,7 +9,6 @@ npm install hexo-cli -g
 
 * 初始化
 ```bash
-npm install hexo-generator-searchdb --save
 npm install
 ```
 
