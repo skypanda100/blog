@@ -1,6 +1,7 @@
 ---
 layout: post
 title: 查看系统开机时间
+date: 2017-06-01 09:05:12
 ---
 + 复杂的命令  
 `$ date -d "$(awk -F. '{print $1}' /proc/uptime) second ago" +"%Y-%m-%d %H:%M:%S"`  

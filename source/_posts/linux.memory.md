@@ -1,6 +1,7 @@
 ---
 layout: post
 title: linux内存分析
+date: 2017-06-23 09:50:24
 ---
 + 分析top命令以及smaps  
 讲得比较浅显易懂  

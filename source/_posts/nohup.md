@@ -1,6 +1,7 @@
 ---
 layout: post
 title: 后台运行
+date: 2017-06-22 15:35:12
 ---
 + `$ java -jar xx.jar`  
 当前ssh窗口被锁定，可按CTRL + C打断程序运行，或直接关闭窗口，程序退出。  

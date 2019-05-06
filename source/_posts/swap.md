@@ -1,6 +1,7 @@
 ---
 layout: post
 title: 增加swap大小
+date: 2017-04-30 12:05:02
 ---
 * 增加swap大小, 30G 左右
 ```Bash

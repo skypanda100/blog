@@ -1,6 +1,7 @@
 ---
 layout: post
 title: short与long是限定符，不是基本数据类型
+date: 2017-09-14 11:00:05
 ---
 c语言只提供了几种基本数据类型
 * char

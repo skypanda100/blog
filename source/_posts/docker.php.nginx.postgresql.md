@@ -1,6 +1,7 @@
 ---
 layout: post
 title: docker + php + nginx + postgresql
+date: 2017-07-14 16:52:01
 ---
 1. 启动容器  
 	```Bash
@@ -10,7 +11,7 @@ title: docker + php + nginx + postgresql
 	```
 
 	如果步骤2和3都成功后执行下面的命令(记得将时间更改为北京时) 
- 
+
 	```Bash
 	$ docker exec -it gg.php /bin/bash
 	$ cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime

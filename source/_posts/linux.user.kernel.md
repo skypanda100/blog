@@ -1,6 +1,7 @@
 ---
 layout: post
 title: linux的用户态和内核态
+date: 2019-05-05 10:03:05
 ---
 # Linux体系架构
 ![linux架构](/image/linux_user_kernel_1.png)

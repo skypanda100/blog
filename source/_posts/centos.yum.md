@@ -1,6 +1,7 @@
 ---
 layout: post
 title: 更换centos的yum源
+date: 2019-05-01 09:00:25
 ---
 **网上给出的将centos的yum源替换为阿里云源，目前不能用了，所以贴出下面源配置**
 

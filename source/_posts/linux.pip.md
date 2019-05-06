@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Linux Shell 1>/dev/null 2>&1 含义
+date: 2017-07-07 19:28:44
 ---
 *在shell中，每个进程都和三个系统文件 相关联：标准输入stdin，标准输出stdout、标准错误stderr，三个系统文件的文件描述符分别为0，1、2。所以这里2>&1 的意思就是将标准错误也输出到标准输出当中。*
 ## shell中可能经常能看到：`echo log > /dev/null 2>&1`  

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: centos7以上添加端口
+date: 2017-08-02 10:26:31
 ---
 1. 先查看firewalld是否开启
 ```Bash

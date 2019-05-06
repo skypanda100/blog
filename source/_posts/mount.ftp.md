@@ -1,6 +1,7 @@
 ---
 layout: post
 title: centos挂载ftp目录
+date: 2017-06-15 13:25:25
 ---
 + 安装`rpmforge-releae`  
 去[某个地址](http://www.rpm-find.net/linux/rpm2html/search.php?query=rpmforge-release(x86-64))下载`rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm`，然后执行命令`rpm -Uhv rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm`  

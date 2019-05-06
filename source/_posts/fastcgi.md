@@ -1,6 +1,7 @@
 ---
 layout: post
 title: nginx + spawn-fastcgi + fcgi
+date: 2017-10-08 16:01:02
 ---
 **以下配置应该针对自己环境进行相应改变**
 * nginx  
