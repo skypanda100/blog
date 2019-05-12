@@ -11,6 +11,7 @@ int poll( struct pollfd *fds, unsigned int nfds, int timeout);
 ```
 * fds：待测试的描述以及待测试的事件等，可以是多个。
   pollfd结构体如下：
+  
   ```c
   struct pollfd {
   	int fd;			/* 文件描述符 */
@@ -31,8 +32,8 @@ int poll( struct pollfd *fds, unsigned int nfds, int timeout);
   此外，revents域中还可能返回下列事件：
   - POLLER：指定的文件描述符发生错误
   - POLLHUP：指定的文件描述符挂起事件
-  - POLLNVAL：指定的文件描述符非法
-
+- POLLNVAL：指定的文件描述符非法
+  
   POLLIN | POLLPRI等价于select()的读事件，POLLOUT | POLLWRBAND等价于select()的写事件。POLLIN等价于POLLRDNORM | POLLRDBAND，而POLLOUT则等价于POLLWRNORM。例如，要同时监视一个文件描述符是否可读和可写，我们可以设置 events为POLLIN | POLLOUT。在poll返回时，我们可以检查revents中的标志，对应于文件描述符请求的events结构体。如果POLLIN事件被设置，则文件描述符可以被读取而不阻塞。如果POLLOUT被设置，则文件描述符可以写入而不导致阻塞。这些标志并不是互斥的：它们可能被同时设置，表示这个文件描述符的读取和写入操作都会正常返回而不阻塞。
 * nfds：fds的个数。
 * timeout：参数指定等待的毫秒数，无论I/O是否准备好，poll都会返回。timeout指定为负数值表示无限超时，使poll()一直挂起直到一个指定事件发生；timeout为0指示poll调用立即返回并列出准备好I/O的文件描述符，但并不等待其它的事件。这种情况下，poll()就像它的名字那样，一旦选举出来，立即返回。
@@ -62,7 +63,7 @@ poll和select同样存在一个缺点就是，包含大量文件描述符的数�
   #define CONCURRENT_MAX 8   //应用层同时可以处理的连接
   #define SERVER_PORT 11332
   #define BUFFER_SIZE 1024
-  #define QUIT_CMD ".quit"
+  #define QUIT_CMD ".quit\n"
   
   int main(int argc, const char * argv[])
   {

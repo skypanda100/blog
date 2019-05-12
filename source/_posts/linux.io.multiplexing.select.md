@@ -54,7 +54,7 @@ int select(int maxfdp1, fd_set *readset, fd_set *writeset, fd_set *exceptset, co
   #define CONCURRENT_MAX 8   //应用层同时可以处理的连接
   #define SERVER_PORT 11332
   #define BUFFER_SIZE 1024
-  #define QUIT_CMD ".quit"
+  #define QUIT_CMD ".quit\n"
   int client_fds[CONCURRENT_MAX];
   int main(int argc, const char * argv[])
   {
