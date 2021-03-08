@@ -140,3 +140,42 @@ date: 2021-02-23 11:29:05
   	return 0;
   }
   ```
+* 一次函数调用其实包含一系列工作：调用前要先保存寄存器，并在返回时恢复；可能需要拷贝实参；程序转向一个新的位置继续执行；
+* 一般来说，内联机制用于优化规模较小、流程直接、频繁调用的函数，很多编译器都不支持内联递归函数，而且一个75行的函数也不大可能在调用点内联展开；
+* constexpr函数是指用于常量表达式的函数，有几个约定：函数的返回类型及所有形参的类型都得是字面值类型，而且函数体中必须有且只有一条return语句（函数体内可以包含其他语句，只要这些语句在运行时不执行任何操作就行）；
+* 为了能把constexpr函数在编译过程中展开，它被隐式地指定为内联函数；
+* constexpr函数返回的不一定是常量表达式；
+* 和其他函数不一样，内联函数和constexpr函数可以在程序中多次定义。毕竟，编译器要想展开函数只有声明是不够的，还需要函数的定义。不过，对于某个给定的内联函数或constexpr函数来说，它的多个定义必须保持一致。基于这个原因，内联函数和constexpr函数通常定义在头文件中；
+* assert(expr)是预处理宏，首先对expr求值，如果表达式为假（即0），assert输出信息并终止程序的执行，如果表达式为真（即非0），assert什么也不做；
+* assert的行为依赖于一个名为NDEBUG的预处理变量的状态，如果定义了NDEBUG，则assert什么也不做，默认状态是没有定义NDEBUG的；
+* 当把一个函数名作为一个值使用时，该函数自动转换成指针；
+  ```c++
+  pf = lengthCompare;	// pf指向名为lengthCompare的函数
+  pf = &lengthCompare;	// 等价的赋值语句；取地址符是可选的
+  ```
+* 我们还能直接使用指向函数的指针调用该函数，无需提前解引用指针；
+  ```c++
+  bool b1 = pf("hello", "hi");	// 调用lengthCompare函数
+  bool b2 = (*pf)("hello", "hi");	// 一个等价的调用
+  bool b3 = lengthCompare("hello", "hi");	// 另一个等价的调用
+  ```
+* 函数指针形参；
+  ```c++
+  void useBigger(const string &s1, const string &s2, bool pf(const string &, const string &));	// 第三个形参是函数类型，它会自动地转换成指向函数的指针
+  void useBigger(const string &s1, const string &s2, bool (*pf)(const string &, const string &));	// 等价的声明：显示地将形参定义成指向函数的指针
+  useBigger(s1, s2, lengthCompare);	// 自动将函数lengthCompare转换成指向该函数的指针
+  ```
+* 直接使用函数指针类型显得冗长而繁琐；
+  ```c++
+  // Func和Func2是函数类型
+  typedef bool Func(const string &, const string &);
+  typedef decltype(lengthCompare) Func2;
+  // FuncP和FuncP2是指向函数的指针
+  typedef bool(*FuncP)(const string &, const string &);
+  typedef decltype(lengthCompare) *FuncP2;
+  ```
+* 跟数组类似，虽然不能返回一个函数，但是能返回指向函数类型的指针。然而，我们必须把返回类型写成指针形式，编译器不会自动将函数返回类型当成对应的指针类型处理；
+  ```c++
+  int (*f1(int))(int *, int);
+  auto f1(int) -> int (*)(int *, int);
+  ```
