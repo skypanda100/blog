@@ -78,7 +78,8 @@ date: 2021-02-23 11:29:05
 1. 可变长参数
 * initializer_list<T>：这是一种标准库类型，跟vector一样是模板类型，跟vector不一样的是元素永远是常量值；
 * 如果想向initializer_list形参中传递一个值的序列，则必须把序列放在一对花括号内；
-* 返回数组指针
+2. 返回数组指针 
+* 参考代码如下
   ```c++
   #include <iostream>
   
