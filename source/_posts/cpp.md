@@ -141,14 +141,17 @@ date: 2021-02-23 11:29:05
   	return 0;
   }
   ```
+3. 函数特性
 * 一次函数调用其实包含一系列工作：调用前要先保存寄存器，并在返回时恢复；可能需要拷贝实参；程序转向一个新的位置继续执行；
 * 一般来说，内联机制用于优化规模较小、流程直接、频繁调用的函数，很多编译器都不支持内联递归函数，而且一个75行的函数也不大可能在调用点内联展开；
 * constexpr函数是指用于常量表达式的函数，有几个约定：函数的返回类型及所有形参的类型都得是字面值类型，而且函数体中必须有且只有一条return语句（函数体内可以包含其他语句，只要这些语句在运行时不执行任何操作就行）；
 * 为了能把constexpr函数在编译过程中展开，它被隐式地指定为内联函数；
 * constexpr函数返回的不一定是常量表达式；
 * 和其他函数不一样，内联函数和constexpr函数可以在程序中多次定义。毕竟，编译器要想展开函数只有声明是不够的，还需要函数的定义。不过，对于某个给定的内联函数或constexpr函数来说，它的多个定义必须保持一致。基于这个原因，内联函数和constexpr函数通常定义在头文件中；
+4. 调试
 * assert(expr)是预处理宏，首先对expr求值，如果表达式为假（即0），assert输出信息并终止程序的执行，如果表达式为真（即非0），assert什么也不做；
 * assert的行为依赖于一个名为NDEBUG的预处理变量的状态，如果定义了NDEBUG，则assert什么也不做，默认状态是没有定义NDEBUG的；
+5. 指向函数的指针
 * 当把一个函数名作为一个值使用时，该函数自动转换成指针；
   ```c++
   pf = lengthCompare;	// pf指向名为lengthCompare的函数
@@ -179,4 +182,42 @@ date: 2021-02-23 11:29:05
   ```c++
   int (*f1(int))(int *, int);
   auto f1(int) -> int (*)(int *, int);
+  ```
+# 7章 类
+1. 构造函数
+* 只有当类没有声明任何构造函数时，编译器才会自动地生成默认构造函数；
+* 拷贝，赋值和析构主要参考13章；
+2. class或者struct
+* 类既可以使用class也可以使用struct，唯一区别就是默认访问权限，struct默认是public，class默认是private；
+3. 友元
+* 类可以允许其他类或函数访问它的非公有成员，方法是令其他类或者函数成为它的友元（friend）；
+* 一般来说，最好在类定义开始或结束前的位置集中声明友元；
+4. 类的其他特性
+  ```c++
+  class Screen {
+  public:
+  	typedef std::string::size_type pos;
+  	Screen() = default;	// 因为Screen有另一个构造函数，所以本函数是必需的
+  	Screen(pos ht, pos wd, char c) : height(ht), width(wd), contents(ht * wd, c) {}
+  	char get() const {
+  		return contents[cursor];	// 读取光标处的字符，隐式内联
+  	}
+  	inline char get(pos ht, pos wd) const;	// 显式内联
+  	Screen &move(pos r, pos c);	// 能在之后被设为内联
+  private:
+  	pos cursor = 0;	// 类内初始值，必需以符号=或者花括号表示
+  	pos height = 0, width = 0;
+  	std::string contents;
+  };
+  ```
+5. 类的声明
+* `class Screen;`对于类型Screen来说，在它声明之后定义之前是一个不完全类型（incomplete type），也就是说，此时我们已知Screen是一个类类型，但是不清楚它到底包含哪些成员；
+* 不完全类型使用场景有限：可以定义指向这种类型的指针或引用，也可以声明（但不能定义）以不完全类型作为参数或者返回类型的函数；
+* 直到类被定义后数据成员才能被声明成这种类型。换句话说，我们必须完成类的定义，然后编译器才能知道存储该数据成员需要多少空间。因为只有当类全部完成后类才算被定义，所以一个类的成员类型不能是该类自己。然而，一旦一个类的名字出现后，它就被认为是声明过了（但尚未定义），因此类允许包含指向它自身类型的引用或指针。
+  ```c++
+  class Link_screen {
+  	Screen window;
+  	Link_screen *next;
+  	Link_screen *prev;
+  };
   ```
