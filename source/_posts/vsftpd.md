@@ -17,9 +17,11 @@ $ vi /etc/sysconfig/selinux
 ```
 3. 修改vsftpd配置文件
 ```Bash
-#添加pasv_min_port=4000，被动模式最小端口
-#添加pasv_max_port=4100，被动模式最大端口
-#将chroot_local_user=YES的注释去掉，将本地用户限制到自己的主目录
+#添加pasv_min_port=4000，被动模式最小端口。
+#添加pasv_max_port=4100，被动模式最大端口。
+#添加allow_writeable_chroot=YES，将本地用户限制到自己的主目录后就不能再有写权限了，
+#如果检查还有写权限就会报错refusing to run with writable root inside chroot。
+#将chroot_local_user=YES的注释去掉，将本地用户限制到自己的主目录。
 $ vi /etc/vsftpd/vsftpd.conf
 ```
 4. 添加用户
